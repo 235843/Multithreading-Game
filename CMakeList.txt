@@ -1,0 +1,19 @@
+cmake_minimum_required(VERSION 3.23)
+project(server C )
+project(client C )
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+
+set(CMAKE_C_STANDARD 17)
+
+add_executable(server main.c server.c server.h)
+add_executable(client client.c player_lib.h player_lib.c)
+
+find_package(Curses REQUIRED)
+target_link_libraries(server ${CURSES_LIBRARIES})
+target_link_libraries(client ${CURSES_LIBRARIES})
+target_link_libraries(server m)
+
+find_package(Threads REQUIRED)
+target_link_libraries( server ${CMAKE_THREAD_LIBS_INIT} )
+target_link_libraries( client ${CMAKE_THREAD_LIBS_INIT} )
